@@ -7,7 +7,7 @@ import os
 import csv
 
 # Specify the folder that contains the pdf-files
-inputfolder = r"File Path that contains PDF files"
+inputfolder = r"./sample/"
 # Specify the filepath of the output csv file
 outputcsvfile = r"output file path.csv"
 
@@ -120,9 +120,9 @@ for filename in pdffiles:
     document = fitz.open(inputfilepath)
 
     text = ""
-    for pagenumber in range(document.pageCount):
-        page = document.loadPage(pagenumber)
-        page_text = page.getText("text")
+    for pagenumber in range(document.page_count):
+        page = document.load_page(pagenumber)
+        page_text = page.get_text("text")
         text += page_text
 
     # Concatenate the text string, so that we can use regular expressions easily to extract the whole table
@@ -174,6 +174,7 @@ for filename in pdffiles:
     fund_items.append(fundname)
     index.append("Fund")
 
+    print(index)
     # Loop through all the line items from the line items tables and append it to the fund_items list
     for table, lineitems, text_concat_table, numbers_regex, extract_number in items:
         for lineitem_name, _ in lineitems:
